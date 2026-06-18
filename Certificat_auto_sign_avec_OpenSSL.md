@@ -86,7 +86,7 @@ Puis redémarre Grafana.
 
 Accès :
 
-https://10.1.1.29:3000
+https://192.168.1.100:3000
 
 
 ---
