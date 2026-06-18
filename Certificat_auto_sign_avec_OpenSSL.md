@@ -60,14 +60,48 @@ openssl req -x509 -nodes -days 3650 \
 
 --- 
 
+## 🔹 3. Vérifier le certificat
+
+>**`openssl x509 -in monitoring.crt -text -noout`**  
+On y voit particulièrement les infos du début, la clé publique, et la signature.  
+
+![alt text](<Images/Capture d'écran 2026-06-18 154351.png>)
+![alt text](<Images/Capture d'écran 2026-06-18 154407.png>)
+
+---
+
+## 🔹 Utilisation avec Grafana
+
+Pour Grafana, modifie `grafana.ini` (dans `/etc/grafana/`), il faut décommenter et modifier, en prenant soin de copier la clé privé et le certificat dans le dossier que l'on renseigne (ici `/etc/grafana/`) :  
+
+```ini
+[server]
+protocol = https
+http_port = 3000
+cert_file = /etc/grafana/monitoring.crt
+cert_key = /etc/grafana/monitoring.key
+```
+
+Puis redémarre Grafana.
+
+Accès :
+
+https://10.1.1.29:3000
+
+
+---
+
+## 🔹 Utilisation avec Prometheus
+
+
+
+
+---
+
+## 🔹 Utilisation avec Alertmanager
 
 
 
 
 
-
-
-
-
-
-
+---
