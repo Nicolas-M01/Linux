@@ -82,21 +82,65 @@ cert_file = /etc/grafana/monitoring.crt
 cert_key = /etc/grafana/monitoring.key
 ```
 
+Les droits pour les fichiers doivent être :
+
+```bash
+sudo chown root:grafana /etc/grafana/monitoring.key
+sudo chmod 640 /etc/grafana/monitoring.key
+
+sudo chmod 644 /etc/grafana/monitoring.crt
+```
+
+
 Puis redémarre Grafana.
 
 Accès :
 
 https://192.168.1.100:3000
-
+Le HTTP n'est plus accessible.
 
 ---
 
 ## 🔹 Utilisation avec Prometheus
 
+Pour Prometheus, créer un fichier `web.yml` dans `/etc/prometheus/`:  
 
+```yml
+tls_server_config:
+  cert_file: monitoring.crt
+  key_file: monitoring.key
+```
 
+Copier les fichiers certificats et clé privée dans le dossier Prometheus :  
+``sudo cp monitoring.key /etc/prometheus/``  
+``sudo cp monitoring.crt /etc/prometheus/``  
 
+Dans le fichier systemd de Prometheus il faut rajouter :
+
+```bash
+--web.config.file=/etc/prometheus/web.yml
+```
+
+Les droits pour les fichiers doivent être :
+
+```bash
+sudo chown root:prometheus /etc/prometheus/monitoring.key
+sudo chmod 640 /etc/prometheus/monitoring.key
+
+sudo chmod 644 /etc/prometheus/monitoring.crt
+```
+
+Puis il faut redémarrer systemd et le service :  
+```bash
+sudo systemctl daemon-reload
+sudo systemctl restart prometheus
+sudo systemctl status prometheus
+```
 ---
+
+Dorénavant la connexion sur Prometheus s'exécute uniquement en HTTPS.
+
+
 
 ## 🔹 Utilisation avec Alertmanager
 
