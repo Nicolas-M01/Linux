@@ -12,7 +12,7 @@ le [alt_names] permet de lier le certificat au serveur 192.168.0.100 uniquement.
 
 
 
-## 1. Créer le fichier de configuration `monitoring.cnf` :  
+## 🔹 1. Créer le fichier de configuration `monitoring.cnf` :  
 
 ```ini
 [req]
@@ -35,15 +35,15 @@ IP.1 = 192.168.0.100
 
 ---
 
-## 2. Générer la clé et le certificat
+## 🔹 2. Générer la clé et le certificat
 
 Ici on va créer le certificat avec openssl.  
 Cette commande crée un certificat de type X509 en générant le certificat et la clé privée qui va signer le hash du certificat.  
 La validité est de 10ans, l'algorythme utilisé pour les clé asymétriques est le RSA en 4096 bits.  
 Les fichier de sortie seront :  
-Le certificat : `monitoring.crt`  
-La clé privée : `monitoring.key`  
-On indique le fichier de conf du dessus pour qu'il le remplisse avec l'IP et les autres détails concernant le chiffrement. 
+* Le certificat : `monitoring.crt`  
+* La clé privée : `monitoring.key`  
+On indique le fichier de conf du dessus pour qu'il le remplisse avec l'IP et les autres détails concernant le chiffrement.  
 
 ```bash
 openssl req -x509 -nodes -days 3650 \
@@ -53,9 +53,12 @@ openssl req -x509 -nodes -days 3650 \
 -config monitoring.cnf
 ```
 
+✅ **Le résultat :**
 
 
+![alt text](<Images/Capture d'écran 2026-06-18 152523.png>)
 
+--- 
 
 
 
